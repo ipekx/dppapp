@@ -11,10 +11,10 @@
         android:label="fragment_scan"
         tools:layout="@layout/fragment_scan" />
     <fragment
-        android:id="@+id/productsFragment"
-        android:name="com.example.digitalproductapp.ProductsFragment"
-        android:label="fragment_products"
-        tools:layout="@layout/fragment_products" />
+        android:id="@+id/collectionsFragment"
+        android:name="com.example.digitalproductapp.CollectionsFragment"
+        android:label="fragment_collections"
+        tools:layout="@layout/fragment_collections" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.digitalproductapp.SettingsFragment"

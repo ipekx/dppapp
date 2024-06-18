@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Products"
-        android:icon="@drawable/ic_products"
-        android:id="@+id/productsFragment"/>
+    <item android:title="Collections"
+        android:icon="@drawable/ic_collections"
+        android:id="@+id/collectionsFragment"/>
 
     <item android:title="Scan"
         android:icon="@drawable/ic_scan"
