@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import androidx.navigation.fragment.findNavController
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,8 +35,17 @@ class CollectionDetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_collection_details, container, false)
+        val view = inflater.inflate(R.layout.fragment_collection_details, container, false)
+
+        // Find the ImageButton for back navigation
+        val backButton: ImageButton = view.findViewById(R.id.backButton)
+
+        // Set click listener for the back button
+        backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+
+        return view
     }
 
     companion object {
