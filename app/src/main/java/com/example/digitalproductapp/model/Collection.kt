@@ -1,5 +1,8 @@
 package com.example.digitalproductapp.model
 
+import android.os.Parcel
+import android.os.Parcelable
+
 /**
  * Data class representing a collection of items.
  *
@@ -13,4 +16,28 @@ data class Collection(
     val iconResId: Int,
     val items: List<String> = emptyList(),
     val createdDate: Long = System.currentTimeMillis()
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString() ?: "",
+        parcel.readInt()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeInt(iconResId)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Collection> {
+        override fun createFromParcel(parcel: Parcel): Collection {
+            return Collection(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Collection?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

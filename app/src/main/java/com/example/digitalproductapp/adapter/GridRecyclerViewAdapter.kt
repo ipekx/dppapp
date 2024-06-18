@@ -15,8 +15,13 @@ import com.example.digitalproductapp.model.Collection
  *
  * @property collections The list of collections to be displayed.
  */
-class GridRecyclerViewAdapter(private val collections: List<Collection>) :
+class GridRecyclerViewAdapter(private val collections: List<Collection>, private val itemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<GridRecyclerViewAdapter.MyViewHolder>() {
+
+    // Interface for click listener
+    interface OnItemClickListener {
+        fun onItemClick(collection: Collection)
+    }
 
     /**
      * This method is called when the `RecyclerView` needs a new `ViewHolder` of the given type to represent an item.
@@ -28,7 +33,7 @@ class GridRecyclerViewAdapter(private val collections: List<Collection>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         // Inflate the layout for the collection item view
         val view = LayoutInflater.from(parent.context).inflate(R.layout.collection_item, parent, false)
-        return MyViewHolder(view)
+        return MyViewHolder(view, itemClickListener)
     }
 
     /**
@@ -58,7 +63,7 @@ class GridRecyclerViewAdapter(private val collections: List<Collection>) :
      *
      * @property itemView The view representing an item in the `RecyclerView`.
      */
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, private val itemClickListener: OnItemClickListener) : RecyclerView.ViewHolder(itemView) {
         // TextView for displaying the collection name
         private val collectionName: TextView = itemView.findViewById(R.id.collection_name)
         // ImageView for displaying the collection icon
@@ -74,6 +79,11 @@ class GridRecyclerViewAdapter(private val collections: List<Collection>) :
             collectionName.text = collection.name
             // Set the collection icon
             collectionIcon.setImageResource(collection.iconResId)
+
+            // Handle item click
+            itemView.setOnClickListener {
+                itemClickListener.onItemClick(collection)
+            }
         }
     }
 }

@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.digitalproductapp.adapter.GridRecyclerViewAdapter
 import com.example.digitalproductapp.model.Collection
 import com.example.digitalproductapp.repository.CollectionRepository
 import com.example.digitalproductapp.viewmodel.CollectionsViewModel
+
 
 /**
  * A Fragment responsible for displaying collections in a grid format.
@@ -52,7 +54,11 @@ class CollectionsFragment : Fragment() {
         // Observe changes in collections LiveData
         viewModel.collections.observe(viewLifecycleOwner) { collections ->
             // Update RecyclerView adapter with new collections
-            adapter = GridRecyclerViewAdapter(collections)
+            adapter = GridRecyclerViewAdapter(collections, object : GridRecyclerViewAdapter.OnItemClickListener {
+                override fun onItemClick(collection: Collection) {
+                    navigateToCollectionDetail(collection)
+                }
+            })
             recyclerView.adapter = adapter
         }
 
@@ -72,5 +78,13 @@ class CollectionsFragment : Fragment() {
 
         // Notify the ViewModel or update LiveData with the new collections
         viewModel.updateCollections(repository.getCollections())
+    }
+
+    /**
+     * Navigate to CollectionDetailFragment when a collection is clicked.
+     */
+    private fun navigateToCollectionDetail(collection: Collection) {
+        val action = CollectionsFragmentDirections.actionCollectionsFragmentToCollectionDetailsFragment(collection)
+        findNavController().navigate(action)
     }
 }
